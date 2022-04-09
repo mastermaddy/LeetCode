@@ -1,19 +1,18 @@
 /**
  * Definition for a binary tree node.
- * public class TreeNode {
- *     public int val;
- *     public TreeNode left;
- *     public TreeNode right;
- *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
  */
-public class Solution {
-    public TreeNode SearchBST(TreeNode root, int searchKey) {
-        if(root==null || root.val == searchKey) return root;
-        return (root.val > searchKey)?SearchBST(root.left, searchKey):SearchBST(root.right, searchKey);
+class Solution {
+public:
+    TreeNode* searchBST(TreeNode* root, int searchKey) {
+        if(!root || root->val == searchKey) return root;
+        return (root->val > searchKey)?searchBST(root->left, searchKey):searchBST(root->right, searchKey);
     }
-}
+};
