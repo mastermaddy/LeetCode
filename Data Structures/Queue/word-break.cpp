@@ -1,20 +1,25 @@
 class Solution {
 public:
-    bool wordBreak(string s, vector<string>& dict){
-        queue<int> BFS;
+    bool wordBreak(string s, vector<string>&dict) {
+        int strLength = s.length();
+        unordered_map<string, int> dictionary;
         unordered_set<int> visited;
-        BFS.push(0);
-        while(BFS.size() > 0){
-            int start = BFS.front();
-            BFS.pop();
-            if(visited.find(start) == visited.end()){
+        queue<int> q;
+        for(auto word:dict){
+            dictionary[word]++;
+        }
+        q.push(0);
+        while(!q.empty()){
+            int start = q.front();
+            q.pop();
+            if(visited.find(start)==visited.end()){
                 visited.insert(start);
-                for(int j=start; j<s.size(); j++){
-                    string word = s.substr(start, j-start+1);
-                    if(find(dict.begin(), dict.end(), word) != dict.end()){
-                        BFS.push(j+1);
-                        if(j+1 == s.size())
+                for(int i=start;i<strLength;++i){
+                    if(dictionary.find(s.substr(start, i-start+1))!=dictionary.end()){
+                        q.push(i+1);
+                        if(i+1==strLength){
                             return true;
+                        }
                     }
                 }
             }
